@@ -18,10 +18,13 @@ export default function LoginForm({login}) {
 
   const onSubmit = evt => {
     evt.preventDefault()
+    login(values)
     // ✨ implement
   }
 
   const isDisabled = () => {
+    const {username, password} = values;
+    return username.trim().length < 3 || password.trim().length < 8;
     // ✨ implement
     // Trimmed username must be >= 3, and
     // trimmed password must be >= 8 for
