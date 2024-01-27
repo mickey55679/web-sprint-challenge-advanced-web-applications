@@ -44,9 +44,25 @@ export default function App() {
     // On success, we should set the token to local storage in a 'token' key,
     // put the server success message in its proper state, and redirect
     // to the Articles screen. Don't forget to turn off the spinner!
+    // Flush the message state
+    setMessage('');
+    // Turn on the spinner
+    setSpinnerOn(true);
+
     axios.post(loginUrl, {username, password})
     .then(response => {
+      const {token, message} = response.data;
+      localStorage.setItem('token', token);
+      setMessage(message)
+      redirectToArticles();
       console.log('Login successful:', response.data)
+    }) 
+    .catch(error => {
+      console.error('An error occurred during login:', error)
+      setMessage('An error occured during login')
+    })
+    .finally(() => {
+      setSpinnerOn(false)
     })
   }
 
