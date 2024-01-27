@@ -5,9 +5,11 @@ const initialFormValues = {
   username: '',
   password: '',
 }
-export default function LoginForm(props) {
+export default function LoginForm({login}) {
   const [values, setValues] = useState(initialFormValues)
   // ✨ where are my props? Destructure them here
+  console.log(login)
+
 
   const onChange = evt => {
     const { id, value } = evt.target
