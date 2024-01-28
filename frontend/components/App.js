@@ -110,7 +110,13 @@ export default function App() {
           <Route path="articles" element={
             <>
               <ArticleForm postArticle={postArticle} />
-              <Articles articles={articles} getArticles={getArticles} setCurrentArticleId={setCurrentArticleId} />
+              <Articles 
+              articles={articles} 
+              getArticles={getArticles} 
+              deleteArticle={deleteArticle}
+              setCurrentArticleId={setCurrentArticleId}
+              currentArticleId={currentArticleId}
+               />
             </>
           } />
         </Routes>
