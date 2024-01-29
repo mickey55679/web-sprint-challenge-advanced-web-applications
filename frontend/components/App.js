@@ -19,6 +19,7 @@ export default function App() {
 
   // ✨ Research `useNavigate` in React Router v.6
   const navigate = useNavigate()
+
   const redirectToLogin = () => { 
     navigate('/')
   }
@@ -46,16 +47,19 @@ export default function App() {
     // to the Articles screen. Don't forget to turn off the spinner!
     // Flush the message state
     setMessage('');
-    // Turn on the spinner
     setSpinnerOn(true);
 
     axios.post(loginUrl, {username, password})
     .then(response => {
       const {token, message} = response.data;
+
+      // console.log(message)
       localStorage.setItem('token', token);
+     
       setMessage(message)
+      // console.log(token)
       redirectToArticles();
-      console.log('Login successful:', response.data)
+      // console.log('Login successful:', response.data)
     }) 
     .catch(error => {
       console.error('An error occurred during login:', error)
@@ -71,6 +75,17 @@ export default function App() {
     // We should flush the message state, turn on the spinner
     setMessage("");
      setSpinnerOn(true);
+     const token = localStorage.getItem('token')
+     axios.get(articlesUrl, {
+      headers: {Authorization: token}
+     }).then(response => {
+      const {articles, message} = response.data;
+      setArticles(articles)
+      setMessage(message);
+     })
+     .catch(error => {
+      console.log(error.response)
+     })
     // and launch an authenticated request to the proper endpoint.
     // On success, we should set the articles in their proper state and
     // put the server success message in its proper state.
@@ -80,6 +95,8 @@ export default function App() {
   }
 
   const postArticle = article => {
+    setMessage('');
+    setSpinnerOn(true);
     // ✨ implement
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
@@ -87,11 +104,15 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
+     setMessage("");
+     setSpinnerOn(true);
     // ✨ implement
     // You got this!
   }
 
   const deleteArticle = article_id => {
+     setMessage("");
+     setSpinnerOn(true);
     // ✨ implement
   }
 
@@ -99,7 +120,7 @@ export default function App() {
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <>
       <Spinner spinnerOn={spinnerOn}/>
-      <Message message={message} />
+      <Message message={message}/>
       <button id="logout" onClick={logout}>Logout from app</button>
       <div id="wrapper" style={{ opacity: spinnerOn ? "0.25" : "1" }}> {/* <-- do not change this line */}
         <h1>Advanced Web Applications</h1>
