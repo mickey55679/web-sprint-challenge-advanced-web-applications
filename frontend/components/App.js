@@ -113,6 +113,22 @@ export default function App() {
     setMessage('');
     // setSpinnerOn(true);
     const token = localStorage.getItem("token");
+    axios 
+    .post(articlesUrl, article, {
+      headers: {Authorization: token}
+    })
+    .then(response => {
+      const { message } = response.data;
+      setMessage(message);
+      getArticles()
+    })
+    .catch(error => {
+      console.error('An error occurred while posting article:', error);
+      setMessage("An error occurred while posting article");
+    })
+    .finally(() => {
+      setSpinnerOn(false)
+    })
 
     // ✨ implement
     // The flow is very similar to the `getArticles` function.
