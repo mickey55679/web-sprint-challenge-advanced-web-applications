@@ -21,10 +21,11 @@ export default function App() {
   const navigate = useNavigate()
 
   const redirectToLogin = () => { 
-    navigate('/')
+    navigate('/');
   }
   const redirectToArticles = () => { 
     navigate('/articles')
+  
    }
 
   const logout = () => {
@@ -52,26 +53,29 @@ export default function App() {
     // Flush the message state
     setMessage('');
     setSpinnerOn(true);
+     console.log("Logging in...");
 
-    axios.post(loginUrl, {username, password})
-    .then(response => {
-      const {token, message} = response.data;
+    axios
+      .post(loginUrl, { username, password })
+      .then((response) => {
+        const { token, message } = response.data;
 
-      // console.log(message)
-      localStorage.setItem('token', token);
-     
-      setMessage(message)
-      // console.log(token)
-      redirectToArticles();
-      // console.log('Login successful:', response.data)
-    }) 
-    .catch(error => {
-      console.error('An error occurred during login:', error)
-      setMessage('An error occured during login')
-    })
-    .finally(() => {
-      setSpinnerOn(false)
-    })
+        // console.log(message)
+        localStorage.setItem("token", token);
+
+        setMessage(message);
+        // console.log(token)
+        redirectToArticles();
+        // console.log('Login successful:', response.data)
+      })
+      .catch((error) => {
+        console.error("An error occurred during login:", error);
+        setMessage("An error occured during login");
+      })
+      .finally(() => {
+        setSpinnerOn(false);
+      });
+  
   }
 
   const getArticles = () => {
@@ -80,16 +84,23 @@ export default function App() {
     setMessage("");
      setSpinnerOn(true);
      const token = localStorage.getItem('token')
-     axios.get(articlesUrl, {
-      headers: {Authorization: token}
-     }).then(response => {
-      const {articles, message} = response.data;
-      setArticles(articles)
-      setMessage(message)
-     })
-     .catch(error => {
-      console.log(error.response)
-     })
+     axios
+       .get(articlesUrl, {
+         headers: { Authorization: token },
+       })
+       .then((response) => {
+         const { articles, message } = response.data;
+         setArticles(articles);
+         setMessage(message);
+       })
+       .catch((error) => {
+        console.error("An error occurred while fetching articles:", error);
+        setMessage("An error occurred while fetching articles");
+       })
+       .finally(() => {
+         setSpinnerOn(false);
+       });
+      
     // and launch an authenticated request to the proper endpoint.
     // On success, we should set the articles in their proper state and
     // put the server success message in its proper state.
@@ -100,7 +111,7 @@ export default function App() {
 
   const postArticle = article => {
     setMessage('');
-    setSpinnerOn(true);
+    // setSpinnerOn(true);
     const token = localStorage.getItem("token");
 
     // ✨ implement
@@ -111,14 +122,14 @@ export default function App() {
 
   const updateArticle = ({ article_id, article }) => {
      setMessage("");
-     setSpinnerOn(true);
+    //  setSpinnerOn(true);
     // ✨ implement
     // You got this!
   }
 
   const deleteArticle = article_id => {
      setMessage("");
-     setSpinnerOn(true);
+    //  setSpinnerOn(true);
     // ✨ implement
   }
 
