@@ -85,7 +85,7 @@ export default function App() {
      }).then(response => {
       const {articles, message} = response.data;
       setArticles(articles)
-      setMessage(message);
+      setMessage(message)
      })
      .catch(error => {
       console.log(error.response)
@@ -101,6 +101,8 @@ export default function App() {
   const postArticle = article => {
     setMessage('');
     setSpinnerOn(true);
+    const token = localStorage.getItem("token");
+
     // ✨ implement
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
