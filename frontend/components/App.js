@@ -28,9 +28,13 @@ export default function App() {
    }
 
   const logout = () => {
+   const token = localStorage.getItem("token");
+   if(token) {
     localStorage.removeItem('token')
-    setMessage('Goodbye')
-    redirectToLogin()
+   }
+   setMessage("Goodbye!");
+    redirectToLogin();
+  
     // ✨ implement
     // If a token is in local storage it should be removed,
     // and a message saying "Goodbye!" should be set in its proper state.
