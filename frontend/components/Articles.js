@@ -10,7 +10,7 @@ export default function Articles(props) {
   // we should render a Navigate to login screen (React Router v.6)
  
    const token = localStorage.getItem("token");
-   console.log(token)
+  //  console.log(token)
 
    if(!token) {
     return <Navigate to='/' />;
