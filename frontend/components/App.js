@@ -36,7 +36,7 @@ export default function App() {
    }
    setMessage("Goodbye!");
 
-    redirectToLogin();
+  redirectToLogin();
   
     // ✨ implement
     // If a token is in local storage it should be removed,
@@ -62,13 +62,15 @@ export default function App() {
       .then((response) => {
         const { token, message } = response.data;
 
-        // console.log(message)
+  
         localStorage.setItem("token", token);
 
         setMessage(message);
-        // console.log(token)
+       
         redirectToArticles();
-        // console.log('Login successful:', response.data)
+
+        setMessage('')
+      
       })
       .catch((error) => {
         console.error("An error occurred during login:", error);
@@ -131,9 +133,12 @@ export default function App() {
 
       console.log(message)
 
-      getArticles()
-
       setMessage(message);
+
+      setArticles()
+      
+
+      
     })
     .catch(error => {
       console.error('An error occurred while posting article:', error);
@@ -161,7 +166,7 @@ export default function App() {
         .then((response) => {
           const { message } = response.data;
           console.log(message);
-          console.log(response)
+          
   })
 
     // ✨ implement
