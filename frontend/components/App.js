@@ -135,7 +135,7 @@ export default function App() {
 
       setMessage(message);
 
-      setArticles()
+      getArticles()
       
 
       
@@ -155,19 +155,19 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
-     setMessage("");
-     setSpinnerOn(true);
-     const token = localStorage.getItem('token');
+  //    setMessage("");
+  //    setSpinnerOn(true);
+  //    const token = localStorage.getItem('token');
 
-      axios
-        .put(`${articlesUrl}/${article_id}`, article, {
-          headers: { Authorization: token },
-        })
-        .then((response) => {
-          const { message } = response.data;
-          console.log(message);
+  //     axios
+  //       .put(`${articlesUrl}/${article_id}`, article, {
+  //         headers: { Authorization: token },
+  //       })
+  //       .then((response) => {
+  //         const { message } = response.data;
+  //         console.log(message);
           
-  })
+  // })
 
     // ✨ implement
     // You got this!
@@ -213,7 +213,7 @@ export default function App() {
                   currentArticle={null}
                 />
                 <Articles
-                  articles={[]}
+                  articles={articles}
                   getArticles={getArticles}
                   deleteArticle={deleteArticle}
                   setCurrentArticleId={setCurrentArticleId}
