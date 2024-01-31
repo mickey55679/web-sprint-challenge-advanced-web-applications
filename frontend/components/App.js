@@ -30,10 +30,12 @@ export default function App() {
 
   const logout = () => {
    const token = localStorage.getItem("token");
+
    if(token) {
     localStorage.removeItem('token')
    }
    setMessage("Goodbye!");
+
     redirectToLogin();
   
     // ✨ implement
@@ -53,7 +55,7 @@ export default function App() {
     // Flush the message state
     setMessage('');
     setSpinnerOn(true);
-     console.log("Logging in...");
+     
 
     axios
       .post(loginUrl, { username, password })
@@ -91,12 +93,18 @@ export default function App() {
        .then((response) => {
          const { articles, message } = response.data;
          setArticles(articles);
-        //  console.log(message)
+         //  console.log(message)
          setMessage(message);
        })
        .catch((error) => {
-        console.error("An error occurred while fetching articles:", error);
-        setMessage("An error occurred while fetching articles");
+         console.error("An error occurred while fetching articles:", error);
+         if (error.response && error.response.status === 401) {
+           // Token might have gone bad, redirect to login
+           setMessage("Unauthorized. Redirecting to login...");
+           redirectToLogin(); // Assuming redirectToLogin is defined in your component
+         } else {
+           setMessage("An error occurred while fetching articles");
+         }
        })
        .finally(() => {
          setSpinnerOn(false);
