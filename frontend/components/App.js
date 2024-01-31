@@ -94,14 +94,16 @@ export default function App() {
          const { articles, message } = response.data;
          setArticles(articles);
          //  console.log(message)
-         setMessage(message);
+          if (!message) {
+            setMessage(message);
+          }
        })
        .catch((error) => {
          console.error("An error occurred while fetching articles:", error);
          if (error.response && error.response.status === 401) {
            // Token might have gone bad, redirect to login
            setMessage("Unauthorized. Redirecting to login...");
-           redirectToLogin(); // Assuming redirectToLogin is defined in your component
+           redirectToLogin();
          } else {
            setMessage("An error occurred while fetching articles");
          }
@@ -127,10 +129,12 @@ export default function App() {
       headers: {Authorization: token}
     })
     .then(response => {
-      const { message } = response.data;
+     const {message} = response.data
 
       console.log(message)
+
       getArticles()
+
       setMessage(message);
     })
     .catch(error => {
