@@ -91,6 +91,7 @@ export default function App() {
        .then((response) => {
          const { articles, message } = response.data;
          setArticles(articles);
+        //  console.log(message)
          setMessage(message);
        })
        .catch((error) => {
@@ -111,7 +112,7 @@ export default function App() {
 
   const postArticle = article => {
     setMessage('');
-    // setSpinnerOn(true);
+    setSpinnerOn(true);
     const token = localStorage.getItem("token");
     axios 
     .post(articlesUrl, article, {
@@ -119,8 +120,10 @@ export default function App() {
     })
     .then(response => {
       const { message } = response.data;
-      setMessage(message);
+
+      console.log(message)
       getArticles()
+      setMessage(message);
     })
     .catch(error => {
       console.error('An error occurred while posting article:', error);
@@ -138,13 +141,25 @@ export default function App() {
 
   const updateArticle = ({ article_id, article }) => {
      setMessage("");
-    //  setSpinnerOn(true);
+     setSpinnerOn(true);
+     const token = localStorage.getItem('token');
+
+      axios
+        .put(`${articlesUrl}/${article_id}`, article, {
+          headers: { Authorization: token },
+        })
+        .then((response) => {
+          const { message } = response.data;
+          console.log(message);
+          console.log(response)
+  })
+
     // ✨ implement
     // You got this!
   }
 
   const deleteArticle = article_id => {
-     setMessage("");
+    //  setMessage("");
     //  setSpinnerOn(true);
     // ✨ implement
   }
@@ -152,32 +167,49 @@ export default function App() {
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <>
-      <Spinner on={spinnerOn}/>
-      <Message message={message}/>
-      <button id="logout" onClick={logout}>Logout from app</button>
-      <div id="wrapper" style={{ opacity: spinnerOn ? "0.25" : "1" }}> {/* <-- do not change this line */}
+      <Spinner on={spinnerOn} />
+      <Message message={message} />
+
+      <button id="logout" onClick={logout}>
+        Logout from app
+      </button>
+      <div id="wrapper" style={{ opacity: spinnerOn ? "0.25" : "1" }}>
+        {" "}
+        {/* <-- do not change this line */}
         <h1>Advanced Web Applications</h1>
         <nav>
-          <NavLink id="loginScreen" to="/">Login</NavLink>
-          <NavLink id="articlesScreen" to="/articles">Articles</NavLink>
+          <NavLink id="loginScreen" to="/">
+            Login
+          </NavLink>
+          <NavLink id="articlesScreen" to="/articles">
+            Articles
+          </NavLink>
         </nav>
         <Routes>
           <Route path="/" element={<LoginForm login={login} />} />
-          <Route path="articles" element={
-            <>
-              <ArticleForm postArticle={postArticle} updateArticle={updateArticle} setCurrentArticleId={setCurrentArticleId}/>
-              <Articles 
-              articles={articles} 
-              getArticles={getArticles} 
-              deleteArticle={deleteArticle}
-              setCurrentArticleId={setCurrentArticleId}
-              currentArticleId={currentArticleId}
-               />
-            </>
-          } />
+          <Route
+            path="articles"
+            element={
+              <>
+                <ArticleForm
+                  postArticle={postArticle}
+                  updateArticle={updateArticle}
+                  setCurrentArticleId={setCurrentArticleId}
+                  currentArticle={null}
+                />
+                <Articles
+                  articles={articles}
+                  getArticles={getArticles}
+                  deleteArticle={deleteArticle}
+                  setCurrentArticleId={setCurrentArticleId}
+                  currentArticleId={currentArticleId}
+                />
+              </>
+            }
+          />
         </Routes>
         <footer>Bloom Institute of Technology 2022</footer>
       </div>
     </>
-  )
+  );
 }

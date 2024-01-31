@@ -27,12 +27,13 @@ export default function ArticleForm(props) {
 
   const onSubmit = evt => {
     evt.preventDefault()
-    if(currentArticle) {
+
+     if (currentArticle) {
       updateArticle({ article_id: currentArticle.article_id, article: values });
-    } else {
-      postArticle(values)
-    }
-    setValues(initialFormValues)
+     } else {
+       postArticle(values);
+     }
+     setValues(initialFormValues);
     
     // ✨ implement
     // We must submit a new post or update an existing one,
