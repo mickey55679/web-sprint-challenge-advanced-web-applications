@@ -94,9 +94,7 @@ export default function App() {
          const { articles, message } = response.data;
          setArticles(articles);
          //  console.log(message)
-          if (!message) {
-            setMessage(message);
-          }
+         setMessage(message)
        })
        .catch((error) => {
          console.error("An error occurred while fetching articles:", error);
