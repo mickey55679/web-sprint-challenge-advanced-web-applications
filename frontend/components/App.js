@@ -213,7 +213,7 @@ export default function App() {
                   currentArticle={null}
                 />
                 <Articles
-                  articles={articles}
+                  articles={[]}
                   getArticles={getArticles}
                   deleteArticle={deleteArticle}
                   setCurrentArticleId={setCurrentArticleId}
