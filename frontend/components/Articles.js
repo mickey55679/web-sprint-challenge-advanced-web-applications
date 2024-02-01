@@ -61,4 +61,5 @@ Articles.propTypes = {
   getArticles: PT.func.isRequired,
   deleteArticle: PT.func.isRequired,
   setCurrentArticle: PT.func.isRequired,
-  currentArticle: PT.numbr, // can be undefined or null
+  currentArticle: PT.object, // can be undefined or null
+}

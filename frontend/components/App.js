@@ -165,12 +165,13 @@ export default function App() {
         })
         .then((response) => {
           const { message } = response.data;
-          // console.log(message);
+          console.log(message);
           setMessage(message);
           setArticles(articles.map((art) => {
            if(art.article_id === article_id) {
-           return art
+           return {...art, ...article}
            }
+           return art;
           }))
 
           
