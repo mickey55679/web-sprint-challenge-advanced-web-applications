@@ -30,6 +30,7 @@ export default function Articles(props) {
       {articles && articles.length === 0
           ? 'No articles yet'
           : articles.map(art => {
+         
             return (
               <div className="article" key={art.article_id}>
                 <div>
@@ -59,6 +60,5 @@ Articles.propTypes = {
   })).isRequired,
   getArticles: PT.func.isRequired,
   deleteArticle: PT.func.isRequired,
-  setCurrentArticleId: PT.func.isRequired,
-  currentArticleId: PT.number, // can be undefined or null
-}
+  setCurrentArticle: PT.func.isRequired,
+  currentArticle: PT.numbr, // can be undefined or null
