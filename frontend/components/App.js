@@ -65,11 +65,11 @@ export default function App() {
   
         localStorage.setItem("token", token);
 
+        console.log('login message', message)
+
         setMessage(message);
        
         redirectToArticles();
-
-        setMessage('')
       
       })
       .catch((error) => {
@@ -95,7 +95,7 @@ export default function App() {
        .then((response) => {
          const { articles, message } = response.data;
          setArticles(articles);
-         //  console.log(message)
+          console.log('GET Articles message:',message)
          setMessage(message)
        })
        .catch((error) => {
@@ -131,7 +131,7 @@ export default function App() {
     .then(response => {
      const {message} = response.data
 
-      console.log(message)
+      console.log("postArticles message", message)
 
       setMessage(message);
 
