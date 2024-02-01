@@ -174,8 +174,27 @@ export default function App() {
   }
 
   const deleteArticle = article_id => {
-    //  setMessage("");
-    //  setSpinnerOn(true);
+     setMessage("");
+     setSpinnerOn(true);
+     const token = localStorage.getItem('token');
+     axios.delete(`${articlesUrl}/${article_id}`, {
+      headers: {Authorization: token}
+     })
+     .then(response => {
+      const {message} = response.data
+      // console.log(message)
+      setMessage(message)
+     
+      setArticles(articles.filter((art) => art.article_id !== article_id))
+
+     })
+     .catch((error) => {
+    console.log(error)
+     })
+     .finally(() => {
+       setSpinnerOn(false);
+     })
+
     // ✨ implement
   }
 
