@@ -14,7 +14,7 @@ export default function App() {
   // ✨ MVP can be achieved with these states
   const [message, setMessage] = useState('')
   const [articles, setArticles] = useState([])
-  const [currentArticleId, setCurrentArticleId] = useState()
+  const [currentArticle, setCurrentArticle] = useState(null)
   const [spinnerOn, setSpinnerOn] = useState(false)
 
   // ✨ Research `useNavigate` in React Router v.6
@@ -155,19 +155,19 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
-  //    setMessage("");
-  //    setSpinnerOn(true);
-  //    const token = localStorage.getItem('token');
+     setMessage("");
+     setSpinnerOn(true);
+     const token = localStorage.getItem('token');
 
-  //     axios
-  //       .put(`${articlesUrl}/${article_id}`, article, {
-  //         headers: { Authorization: token },
-  //       })
-  //       .then((response) => {
-  //         const { message } = response.data;
-  //         console.log(message);
+      axios
+        .put(`${articlesUrl}/${article_id}`, article, {
+          headers: { Authorization: token },
+        })
+        .then((response) => {
+          const { message } = response.data;
+          console.log(message);
           
-  // })
+  })
 
     // ✨ implement
     // You got this!
@@ -228,15 +228,15 @@ export default function App() {
                 <ArticleForm
                   postArticle={postArticle}
                   updateArticle={updateArticle}
-                  setCurrentArticleId={setCurrentArticleId}
-                  currentArticle={null}
+                  setCurrentArticle={setCurrentArticle}
+                  currentArticle={currentArticle}
                 />
                 <Articles
                   articles={articles}
                   getArticles={getArticles}
                   deleteArticle={deleteArticle}
-                  setCurrentArticleId={setCurrentArticleId}
-                  currentArticleId={currentArticleId}
+                  setCurrentArticle={setCurrentArticle}
+                  currentArticle={currentArticle}
                 />
               </>
             }
