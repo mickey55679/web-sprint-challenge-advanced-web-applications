@@ -135,7 +135,7 @@ export default function App() {
 
       setMessage(message);
 
-      getArticles()
+      setArticles([...articles, article])
       
 
       
