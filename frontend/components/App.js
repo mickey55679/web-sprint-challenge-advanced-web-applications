@@ -177,7 +177,7 @@ export default function App() {
               }
               return art;
             })
-          );
+          )
 
         console.log("Updated Article from server:", response.data);
       })
