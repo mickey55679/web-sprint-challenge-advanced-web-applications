@@ -30,7 +30,7 @@ export default function ArticleForm(props) {
     evt.preventDefault()
 
      if (currentArticle) {
-      updateArticle({ article_id: currentArticle.article_id, article: currentArticle });
+      updateArticle({ article_id: currentArticle.article_id, article: values });
      } else {
        postArticle(values);
      }

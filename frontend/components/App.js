@@ -155,33 +155,39 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
-     setMessage("");
-     setSpinnerOn(true);
-     const token = localStorage.getItem('token');
+    setMessage("");
+    setSpinnerOn(true);
+    const token = localStorage.getItem("token");
 
-      axios
-        .put(`${articlesUrl}/${article_id}`, article, {
-          headers: { Authorization: token },
-        })
-        .then((response) => {
-          const { message } = response.data;
-          console.log(message);
-          setMessage(message);
-          setArticles(articles.map((art) => {
-           if(art.article_id === article_id) {
-           return {...art, ...article}
-           }
-           return art;
-          }))
+    console.log("Article ID:", article_id); // Log the article ID
+    console.log("Updated Article Data:", article); // Log the updated article data
 
-          
-  })
-  .catch((error) => {
-  console.log(error)
-  })
-  .finally(() => {
-    setSpinnerOn(false)
-  })
+    axios
+      .put(`${articlesUrl}/${article_id}`, article, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        const { message } = response.data;
+        console.log(message);
+        setMessage(message);
+          setArticles(
+            articles.map((art) => {
+              if (art.article_id === article_id) {
+                return { ...art, ...article };
+              }
+              return art;
+            })
+          );
+
+        console.log("Updated Article from server:", response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setMessage("An error occurred while updating article");
+      })
+      .finally(() => {
+        setSpinnerOn(false);
+      });
 
     // ✨ implement
     // You got this!
@@ -200,6 +206,7 @@ export default function App() {
       setMessage(message)
      
       setArticles(articles.filter((art) => art.article_id !== article_id))
+      
 
      })
      .catch((error) => {
